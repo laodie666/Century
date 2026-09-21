@@ -1,0 +1,700 @@
+{
+  "starting_hand": [
+    "create_2_y",
+    "upgrade_2"
+  ],
+  "cards": {
+    "ex_ry_b": {
+      "type": "exchange",
+      "cost": {
+        "Y": 1,
+        "R": 1
+      },
+      "gain": {
+        "B": 1
+      }
+    },
+    "ex_g_rry": {
+      "type": "exchange",
+      "cost": {
+        "G": 1
+      },
+      "gain": {
+        "Y": 1,
+        "R": 2
+      }
+    },
+    "ex_b_rrr": {
+      "type": "exchange",
+      "cost": {
+        "B": 1
+      },
+      "gain": {
+        "R": 3
+      }
+    },
+    "ex_gg_bb": {
+      "type": "exchange",
+      "cost": {
+        "G": 2
+      },
+      "gain": {
+        "B": 2
+      }
+    },
+    "ex_yyyyy_ggg": {
+      "type": "exchange",
+      "cost": {
+        "Y": 5
+      },
+      "gain": {
+        "G": 3
+      }
+    },
+    "ex_yyyy_gb": {
+      "type": "exchange",
+      "cost": {
+        "Y": 4
+      },
+      "gain": {
+        "G": 1,
+        "B": 1
+      }
+    },
+    "ex_rrr_ggyy": {
+      "type": "exchange",
+      "cost": {
+        "R": 3
+      },
+      "gain": {
+        "Y": 2,
+        "G": 2
+      }
+    },
+    "ex_gg_brr": {
+      "type": "exchange",
+      "cost": {
+        "G": 2
+      },
+      "gain": {
+        "R": 2,
+        "B": 1
+      }
+    },
+    "ex_rr_byy": {
+      "type": "exchange",
+      "cost": {
+        "R": 2
+      },
+      "gain": {
+        "Y": 2,
+        "B": 1
+      }
+    },
+    "ex_bb_ggrrr": {
+      "type": "exchange",
+      "cost": {
+        "B": 2
+      },
+      "gain": {
+        "R": 3,
+        "G": 2
+      }
+    },
+    "ex_rrr_bb": {
+      "type": "exchange",
+      "cost": {
+        "R": 3
+      },
+      "gain": {
+        "B": 2
+      }
+    },
+    "ex_g_rr": {
+      "type": "exchange",
+      "cost": {
+        "G": 1
+      },
+      "gain": {
+        "R": 2
+      }
+    },
+    "ex_gg_rrryy": {
+      "type": "exchange",
+      "cost": {
+        "G": 2
+      },
+      "gain": {
+        "Y": 2,
+        "R": 3
+      }
+    },
+    "ex_yyyyy_bb": {
+      "type": "exchange",
+      "cost": {
+        "Y": 5
+      },
+      "gain": {
+        "B": 2
+      }
+    },
+    "ex_b_gyyy": {
+      "type": "exchange",
+      "cost": {
+        "B": 1
+      },
+      "gain": {
+        "Y": 3,
+        "G": 1
+      }
+    },
+    "ex_r_yyy": {
+      "type": "exchange",
+      "cost": {
+        "R": 1
+      },
+      "gain": {
+        "Y": 3
+      }
+    },
+    "ex_gyy_bb": {
+      "type": "exchange",
+      "cost": {
+        "Y": 2,
+        "G": 1
+      },
+      "gain": {
+        "B": 2
+      }
+    },
+    "ex_gg_bryy": {
+      "type": "exchange",
+      "cost": {
+        "G": 2
+      },
+      "gain": {
+        "Y": 2,
+        "R": 1,
+        "B": 1
+      }
+    },
+    "ex_rr_gyyy": {
+      "type": "exchange",
+      "cost": {
+        "R": 2
+      },
+      "gain": {
+        "Y": 3,
+        "G": 1
+      }
+    },
+    "ex_yyy_rrr": {
+      "type": "exchange",
+      "cost": {
+        "Y": 3
+      },
+      "gain": {
+        "R": 3
+      }
+    },
+    "ex_b_rryy": {
+      "type": "exchange",
+      "cost": {
+        "B": 1
+      },
+      "gain": {
+        "Y": 2,
+        "R": 2
+      }
+    },
+    "ex_ggg_bbb": {
+      "type": "exchange",
+      "cost": {
+        "G": 3
+      },
+      "gain": {
+        "B": 3
+      }
+    },
+    "ex_b_gry": {
+      "type": "exchange",
+      "cost": {
+        "B": 1
+      },
+      "gain": {
+        "Y": 1,
+        "R": 1,
+        "G": 1
+      }
+    },
+    "ex_yyyy_gg": {
+      "type": "exchange",
+      "cost": {
+        "Y": 4
+      },
+      "gain": {
+        "G": 2
+      }
+    },
+    "ex_yyy_rg": {
+      "type": "exchange",
+      "cost": {
+        "Y": 3
+      },
+      "gain": {
+        "R": 1,
+        "G": 1
+      }
+    },
+    "ex_rrr_ggg": {
+      "type": "exchange",
+      "cost": {
+        "R": 3
+      },
+      "gain": {
+        "G": 3
+      }
+    },
+    "ex_rr_gg": {
+      "type": "exchange",
+      "cost": {
+        "R": 2
+      },
+      "gain": {
+        "G": 2
+      }
+    },
+    "ex_bb_gggry": {
+      "type": "exchange",
+      "cost": {
+        "B": 2
+      },
+      "gain": {
+        "Y": 1,
+        "R": 1,
+        "G": 3
+      }
+    },
+    "ex_yy_g": {
+      "type": "exchange",
+      "cost": {
+        "Y": 2
+      },
+      "gain": {
+        "G": 1
+      }
+    },
+    "ex_rrr_bgy": {
+      "type": "exchange",
+      "cost": {
+        "R": 3
+      },
+      "gain": {
+        "Y": 1,
+        "G": 1,
+        "B": 1
+      }
+    },
+    "ex_yy_rr": {
+      "type": "exchange",
+      "cost": {
+        "Y": 2
+      },
+      "gain": {
+        "R": 2
+      }
+    },
+    "ex_g_ryyyy": {
+      "type": "exchange",
+      "cost": {
+        "G": 1
+      },
+      "gain": {
+        "Y": 4,
+        "R": 1
+      }
+    },
+    "ex_yyy_b": {
+      "type": "exchange",
+      "cost": {
+        "Y": 3
+      },
+      "gain": {
+        "B": 1
+      }
+    },
+    "ex_b_gg": {
+      "type": "exchange",
+      "cost": {
+        "B": 1
+      },
+      "gain": {
+        "G": 2
+      }
+    },
+    "create_2_y": {
+      "type": "spice",
+      "gain": {
+        "Y": 2
+      }
+    },
+    "sp_yyy": {
+      "type": "spice",
+      "gain": {
+        "Y": 3
+      }
+    },
+    "sp_yyyy": {
+      "type": "spice",
+      "gain": {
+        "Y": 4
+      }
+    },
+    "sp_rr": {
+      "type": "spice",
+      "gain": {
+        "R": 2
+      }
+    },
+    "sp_ryy": {
+      "type": "spice",
+      "gain": {
+        "Y": 2,
+        "R": 1
+      }
+    },
+    "sp_ry": {
+      "type": "spice",
+      "gain": {
+        "Y": 1,
+        "R": 1
+      }
+    },
+    "sp_gy": {
+      "type": "spice",
+      "gain": {
+        "Y": 1,
+        "G": 1
+      }
+    },
+    "sp_g": {
+      "type": "spice",
+      "gain": {
+        "G": 1
+      }
+    },
+    "sp_b": {
+      "type": "spice",
+      "gain": {
+        "B": 1
+      }
+    },
+    "upgrade_2": {
+      "type": "upgrade",
+      "steps": 2
+    },
+    "upgrade_3": {
+      "type": "upgrade",
+      "steps": 3
+    },
+    "pt_yyygg": {
+      "type": "point",
+      "demand": {
+        "Y": 3,
+        "G": 2
+      },
+      "vp": 9
+    },
+    "pt_yyggbb": {
+      "type": "point",
+      "demand": {
+        "Y": 2,
+        "G": 2,
+        "B": 2
+      },
+      "vp": 17
+    },
+    "pt_yyrrgg": {
+      "type": "point",
+      "demand": {
+        "Y": 2,
+        "R": 2,
+        "G": 2
+      },
+      "vp": 13
+    },
+    "pt_rrggbb": {
+      "type": "point",
+      "demand": {
+        "R": 2,
+        "G": 2,
+        "B": 2
+      },
+      "vp": 19
+    },
+    "pt_yyrr": {
+      "type": "point",
+      "demand": {
+        "Y": 2,
+        "R": 2
+      },
+      "vp": 6
+    },
+    "pt_ggbb": {
+      "type": "point",
+      "demand": {
+        "G": 2,
+        "B": 2
+      },
+      "vp": 14
+    },
+    "pt_gggbb": {
+      "type": "point",
+      "demand": {
+        "G": 3,
+        "B": 2
+      },
+      "vp": 17
+    },
+    "pt_bbbbb": {
+      "type": "point",
+      "demand": {
+        "B": 5
+      },
+      "vp": 20
+    },
+    "pt_yrgbbb": {
+      "type": "point",
+      "demand": {
+        "Y": 1,
+        "R": 1,
+        "G": 1,
+        "B": 3
+      },
+      "vp": 20
+    },
+    "pt_yybb": {
+      "type": "point",
+      "demand": {
+        "Y": 2,
+        "B": 2
+      },
+      "vp": 10
+    },
+    "pt_rrrbb": {
+      "type": "point",
+      "demand": {
+        "R": 3,
+        "B": 2
+      },
+      "vp": 14
+    },
+    "pt_rrbb": {
+      "type": "point",
+      "demand": {
+        "R": 2,
+        "B": 2
+      },
+      "vp": 12
+    },
+    "pt_yyggg": {
+      "type": "point",
+      "demand": {
+        "Y": 2,
+        "G": 3
+      },
+      "vp": 11
+    },
+    "pt_rrrgg": {
+      "type": "point",
+      "demand": {
+        "R": 3,
+        "G": 2
+      },
+      "vp": 12
+    },
+    "pt_rrgb": {
+      "type": "point",
+      "demand": {
+        "R": 2,
+        "G": 1,
+        "B": 1
+      },
+      "vp": 12
+    },
+    "pt_yyrrr": {
+      "type": "point",
+      "demand": {
+        "Y": 2,
+        "R": 3
+      },
+      "vp": 8
+    },
+    "pt_rrggg": {
+      "type": "point",
+      "demand": {
+        "R": 2,
+        "G": 3
+      },
+      "vp": 13
+    },
+    "pt_yyybb": {
+      "type": "point",
+      "demand": {
+        "Y": 3,
+        "B": 2
+      },
+      "vp": 11
+    },
+    "pt_yybbb": {
+      "type": "point",
+      "demand": {
+        "Y": 2,
+        "B": 3
+      },
+      "vp": 14
+    },
+    "pt_gggg": {
+      "type": "point",
+      "demand": {
+        "G": 4
+      },
+      "vp": 12
+    },
+    "pt_yrgggb": {
+      "type": "point",
+      "demand": {
+        "Y": 1,
+        "R": 1,
+        "G": 3,
+        "B": 1
+      },
+      "vp": 18
+    },
+    "pt_yggb": {
+      "type": "point",
+      "demand": {
+        "Y": 1,
+        "G": 2,
+        "B": 1
+      },
+      "vp": 12
+    },
+    "pt_yyyrgb": {
+      "type": "point",
+      "demand": {
+        "Y": 3,
+        "R": 1,
+        "G": 1,
+        "B": 1
+      },
+      "vp": 14
+    },
+    "pt_yrgb": {
+      "type": "point",
+      "demand": {
+        "Y": 1,
+        "R": 1,
+        "G": 1,
+        "B": 1
+      },
+      "vp": 12
+    },
+    "pt_yyrrbb": {
+      "type": "point",
+      "demand": {
+        "Y": 2,
+        "R": 2,
+        "B": 2
+      },
+      "vp": 15
+    },
+    "pt_yrrrgb": {
+      "type": "point",
+      "demand": {
+        "Y": 1,
+        "R": 3,
+        "G": 1,
+        "B": 1
+      },
+      "vp": 16
+    },
+    "pt_rrbbb": {
+      "type": "point",
+      "demand": {
+        "R": 2,
+        "B": 3
+      },
+      "vp": 16
+    },
+    "pt_yygg": {
+      "type": "point",
+      "demand": {
+        "Y": 2,
+        "G": 2
+      },
+      "vp": 8
+    },
+    "pt_ggbbb": {
+      "type": "point",
+      "demand": {
+        "G": 2,
+        "B": 3
+      },
+      "vp": 18
+    },
+    "pt_rrrr": {
+      "type": "point",
+      "demand": {
+        "R": 4
+      },
+      "vp": 8
+    },
+    "pt_rrrrr": {
+      "type": "point",
+      "demand": {
+        "R": 5
+      },
+      "vp": 10
+    },
+    "pt_yyyrr": {
+      "type": "point",
+      "demand": {
+        "Y": 3,
+        "R": 2
+      },
+      "vp": 7
+    },
+    "pt_yyrb": {
+      "type": "point",
+      "demand": {
+        "Y": 2,
+        "R": 1,
+        "B": 1
+      },
+      "vp": 9
+    },
+    "pt_ggggg": {
+      "type": "point",
+      "demand": {
+        "G": 5
+      },
+      "vp": 15
+    },
+    "pt_rrgg": {
+      "type": "point",
+      "demand": {
+        "R": 2,
+        "G": 2
+      },
+      "vp": 10
+    },
+    "pt_bbbb": {
+      "type": "point",
+      "demand": {
+        "B": 4
+      },
+      "vp": 16
+    }
+  }
+}
