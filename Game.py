@@ -34,8 +34,14 @@ class Player:
         # Caravan has 4 types of cubes, yellow, red, green, brown, in each index
         self.score = 0
         self.pcard_count = 0
-        self.hand = ["create_2_y","upgrade_2"]
+        self.gold = 0
+        self.silver = 0
+        self.hand = ["sp_yy","upgrade_2"]
         self.discard = []
+
+    def total_score(self) -> int:
+        # Point cards, coins, and every cube better than yellow
+        return self.score + self.gold * 3 + self.silver + sum(self.caravan[1:])
 
     def get_action(self, Game: 'Engine') -> tuple[int, list[int]]:
         # Tuple of action and the extra args potentially needed. 
@@ -108,8 +114,8 @@ class NaivePlayer(Player):
             return ACQUIRE_POINT, [Game.Point_cards.index(self.target)]
         
         # Get 2 yellow
-        if "create_2_y" in self.hand:
-            return PLAY_CARD, [self.hand.index("create_2_y")]
+        if "sp_yy" in self.hand:
+            return PLAY_CARD, [self.hand.index("sp_yy")]
         
         # Upgrade cubes one step towards the colors that are missing
         if "upgrade_2" in self.hand:
@@ -131,6 +137,16 @@ class Engine:
         self.Players = Players
         self.Player_in_play = 0 # Index of player who's supposed to move
         self.game_ends = 0
+        
+        # Starting cubes, later seats get more cubes to make up for the turn order
+        Starting_cubes = [[3,0,0,0], [4,0,0,0], [4,0,0,0], [3,1,0,0], [3,1,0,0]]
+        for i, player in enumerate(self.Players):
+            player.caravan = list(Starting_cubes[i])
+        
+        # Coins above the first and second point card, twice as many as there are players
+        self.Gold_coins = len(self.Players) * 2
+        self.Silver_coins = len(self.Players) * 2
+        self.Silver_pos = 1 # Point card position the silver coins are sitting above
         
         self.Point_deck = POINT_CARDS
         self.Trader_deck = TRADER_CARDS
@@ -177,8 +193,10 @@ class Engine:
             card = CARDS[card_name]
             print(f"  [{i}] {card_name}: vp {card['vp']}, cost {card['cost']}")
         
+        print(f"Coins: {self.Gold_coins} gold above card 0, {self.Silver_coins} silver above card {self.Silver_pos}")
+        
         for i, player in enumerate(self.Players):
-            print(f"Player {i}: score {player.score}, point cards {player.pcard_count}, caravan {player.caravan}")
+            print(f"Player {i}: score {player.score}, point cards {player.pcard_count}, gold {player.gold}, silver {player.silver}, caravan {player.caravan}")
             print(f"  hand {player.hand}")
             print(f"  discard {player.discard}")
         
@@ -189,7 +207,7 @@ class Engine:
         # return winner id, else none
         
         if self.game_ends == 1 and self.Player_in_play == 0:
-            return max(range(len(self.Players)), key = lambda p: self.Players[p].score)
+            return max(range(len(self.Players)), key = lambda p: self.Players[p].total_score())
             
         
         player = self.Players[self.Player_in_play]
@@ -197,7 +215,8 @@ class Engine:
         # There are a few actions a player can take, 
         
         # TODO ADD ALL THE CHECKS, if action invalid skip player turn.
-        # TODO ADD ASSERTS
+        # TODO CARAVAN LIMIT
+        
         
         # Acquire card
         if action == ACQUIRE_CARD:
@@ -231,6 +250,17 @@ class Engine:
             card = CARDS[pt_card_name]
             
             player.caravan = [x - y for x, y in zip(player.caravan, card["cost"])]
+            
+            # Take a coin from above the first or second point card
+            if pt_card_idx == 0 and self.Gold_coins > 0:
+                player.gold += 1
+                self.Gold_coins -= 1
+                # The silver coins move above the first card once the gold runs out
+                if self.Gold_coins == 0:
+                    self.Silver_pos = 0
+            elif pt_card_idx == self.Silver_pos and self.Silver_coins > 0:
+                player.silver += 1
+                self.Silver_coins -= 1
             
             player.pcard_count += 1
             player.score += card["vp"]
@@ -279,7 +309,7 @@ if __name__ == "__main__":
     while winner is None:
         winner = game.step()
     
-    print(f"Player {winner} wins with {game.Players[winner].score} points")
+    print(f"Player {winner} wins with {game.Players[winner].total_score()} points")
             
             
         

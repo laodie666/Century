@@ -1,6 +1,6 @@
 {
   "starting_hand": [
-    "create_2_y",
+    "sp_yy",
     "upgrade_2"
   ],
   "cards": {
@@ -514,7 +514,7 @@
         0
       ]
     },
-    "create_2_y": {
+    "sp_yy": {
       "type": "spice",
       "gain": [
         2,
