@@ -1,6 +1,6 @@
 import json
 import random
-from util import ACQUIRE_CARD, REST, ACQUIRE_POINT, PLAY_CARD, BROWN, CARDS, TRADER_CARDS, POINT_CARDS
+from util import ACQUIRE_CARD, REST, ACQUIRE_POINT, PLAY_CARD, BROWN, CARAVAN_LIMIT, CARDS, TRADER_CARDS, POINT_CARDS
 from players import Player, HumanPlayer, NaivePlayer
 
 
@@ -164,6 +164,34 @@ class Engine:
         
         return None
         
+    def enforce_caravan_limit(self, player: Player, actor: int) -> list:
+        # The caravan holds at most 10 cubes, returns the colors that were discarded
+        excess = sum(player.caravan) - CARAVAN_LIMIT
+        if excess <= 0:
+            return []
+        
+        discards = player.get_discard(self, excess)
+        
+        # Fall back to the lowest cubes first if the discard is invalid
+        valid = (isinstance(discards, list) and len(discards) == excess
+                 and all(isinstance(c, int) and 0 <= c < 4 for c in discards))
+        if valid:
+            counts = [0, 0, 0, 0]
+            for color in discards:
+                counts[color] += 1
+            valid = all(n <= have for n, have in zip(counts, player.caravan))
+        
+        if not valid:
+            print(f"Player {actor} invalid discard, discarding the lowest cubes first")
+            discards = []
+            for color in range(4):
+                discards.extend([color] * min(excess - len(discards), player.caravan[color]))
+        
+        for color in discards:
+            player.caravan[color] -= 1
+        
+        return discards
+        
     def step(self) -> int | None:
         # return winner id, else none
         
@@ -186,8 +214,6 @@ class Engine:
         reason = self.legal_move(player, action, args)
         if reason is not None:
             print(f"Player {self.Player_in_play} illegal move: {reason}, turn skipped")
-        
-        # TODO CARAVAN LIMIT
         
         # Acquire card
         if reason is None and action == ACQUIRE_CARD:
@@ -263,6 +289,9 @@ class Engine:
             
             player.discard.append(player.hand.pop(card_idx))
             
+        # Caravan holds at most 10 cubes, the excess is discarded at the end of the turn
+        discards = self.enforce_caravan_limit(player, actor)
+        
         # Game ends when one player has 5 point cards
         if self.Players[self.Player_in_play].pcard_count == 5:
             self.game_ends = 1
@@ -280,6 +309,7 @@ class Engine:
             "gold": [p.gold for p in self.Players],
             "silver": [p.silver for p in self.Players],
             "caravans": [list(p.caravan) for p in self.Players],
+            "discards": discards,
         })
             
         # Else, rotate to next player

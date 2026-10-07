@@ -1,5 +1,5 @@
 import random
-from util import CARDS, ACQUIRE_CARD, REST, ACQUIRE_POINT, PLAY_CARD, BROWN, search
+from util import CARDS, ACQUIRE_CARD, REST, ACQUIRE_POINT, PLAY_CARD, DISCARD, BROWN, search
 
 
 class Player:
@@ -33,6 +33,14 @@ class Player:
         # The other actions has no arguments. 
          
         pass
+
+    def get_discard(self, Game: 'Engine', excess: int) -> list[int]:
+        # Caravan is over the limit, return the colors of the cubes to drop
+        # Default: the lowest valued cubes first
+        discards = []
+        for color in range(4):
+            discards.extend([color] * min(excess - len(discards), self.caravan[color]))
+        return discards
 
 class HumanPlayer(Player):
     def get_action(self, Game: 'Engine') -> tuple[int, list[int]]:
@@ -72,6 +80,25 @@ class HumanPlayer(Player):
                 print(f"Illegal move: {reason}")
                 continue
             return action, args
+    
+    def get_discard(self, Game: 'Engine', excess: int) -> list[int]:
+        # Ask which cubes to drop until the discard is valid
+        print(f"Caravan over the limit by {excess}, caravan {self.caravan}")
+        
+        while True:
+            discards = []
+            for i in range(excess):
+                color = int(input(f"Cube {i + 1} of {excess} to discard (0 yellow, 1 red, 2 green, 3 brown): "))
+                discards.append(color)
+            
+            if all(0 <= color < 4 for color in discards):
+                counts = [0, 0, 0, 0]
+                for color in discards:
+                    counts[color] += 1
+                if all(n <= have for n, have in zip(counts, self.caravan)):
+                    return discards
+            
+            print("Illegal discard: colors must be 0-3 and the caravan has to hold the cubes")
 
 class NaivePlayer(Player):
     def __init__(self):
@@ -185,7 +212,11 @@ class HeuristicPlayer(Player):
             self.target = max(Game.Point_cards, key = lambda card_name: CARDS[card_name]["vp"])
             self.plan = search(self.hand, CARDS[self.target]["cost"], self.caravan, self.discard)
         
-        # Play the cached plan one move at a time
+        # Play the cached plan one move at a time, skipping discard steps,
+        # those are consumed by get_discard between turns
+        while self.plan and self.plan[0][0] == DISCARD:
+            self.plan.pop(0)
+        
         if self.plan:
             action, args = self.plan.pop(0)
             if action == PLAY_CARD:
@@ -200,4 +231,24 @@ class HeuristicPlayer(Player):
         
         # No plan found, generate cubes and try again
         return self.generate()
+    
+    def get_discard(self, Game: 'Engine', excess: int) -> list[int]:
+        # The cached plan already picked the discard when its play overshot the limit
+        if self.plan and self.plan[0][0] == DISCARD and len(self.plan[0][1]) == excess:
+            return self.plan.pop(0)[1]
+        
+        self.plan = None
+        
+        # No point card to plan against, keep the lowest cubes
+        if self.target not in Game.Point_cards:
+            return super().get_discard(Game, excess)
+        
+        # Search again from the over limit caravan, the first move of the plan
+        # is the discard that keeps the fastest route to the point card
+        plan = search(self.hand, CARDS[self.target]["cost"], self.caravan, self.discard)
+        if plan and plan[0][0] == DISCARD and len(plan[0][1]) == excess:
+            return plan[0][1]
+        
+        # The point card is unreachable either way, keep the lowest cubes
+        return super().get_discard(Game, excess)
 
