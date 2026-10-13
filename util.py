@@ -55,14 +55,17 @@ def limit_options(cubes: list) -> list:
     return discard_options(cubes, excess)
 
 
-def search(hand: list, objective: list, caravan: list = [0,0,0,0], discard: list = []) -> list | None:
-    # Search for the fastest sequence of plays and rests that gets the caravan to cover the objective
-    # Returns a list of (action, args), args[0] of a play is the card name instead of a hand index
+def search_all(hand: list, objectives: list, caravan: list = [0,0,0,0], discard: list = []) -> dict:
+    # Search for the fastest sequence of plays and rests that gets the caravan to cover
+    # each of the objectives, one BFS over the shared state space
+    # Returns a dict of objective tuple -> shortest plan, one entry per reachable objective
     # (DISCARD, [colors]) steps are inserted when a play pushes the caravan over the limit,
     # they cost no turn, the engine asks for them at the end of the turn
-    # Every play and rest costs one turn, returns None if the objective cannot be reached
+    # Every play and rest costs one turn
     
-    Cap = sum(objective) + max(caravan) + 5 # More cubes than this can never help
+    Cap = max(sum(o) for o in objectives) + max(caravan) + 5 # More cubes than this can never help
+    Remaining = {tuple(o) for o in objectives}
+    Found = {}
     Queue = deque()
     Seen = set()
     
@@ -73,12 +76,13 @@ def search(hand: list, objective: list, caravan: list = [0,0,0,0], discard: list
             Seen.add(State)
             Queue.append((State, [(DISCARD, list(discards))] if discards else []))
     
-    while Queue:
+    while Queue and Remaining:
         (Hand, Discard, Caravan), Plan = Queue.popleft()
         
-        # Objective reached
-        if all(x <= y for x, y in zip(objective, Caravan)):
-            return Plan
+        # The first state to cover an objective holds its fastest plan
+        for objective in [o for o in Remaining if all(x <= y for x, y in zip(o, Caravan))]:
+            Found[objective] = Plan
+            Remaining.remove(objective)
         
         # Play every card in hand
         for i, card_name in enumerate(Hand):
@@ -104,7 +108,15 @@ def search(hand: list, objective: list, caravan: list = [0,0,0,0], discard: list
                 Seen.add(State)
                 Queue.append((State, Plan + [(REST, [])]))
     
-    return None
+    return Found
+
+
+def search(hand: list, objective: list, caravan: list = [0,0,0,0], discard: list = []) -> list | None:
+    # Search for the fastest sequence of plays and rests that gets the caravan to cover the objective
+    # Returns a list of (action, args), args[0] of a play is the card name instead of a hand index
+    # Every play and rest costs one turn, returns None if the objective cannot be reached
+    plan = search_all(hand, [objective], caravan, discard).get(tuple(objective))
+    return list(plan) if plan is not None else None
 
 
 def play_results(card: dict, caravan: tuple) -> list:
