@@ -1,0 +1,37 @@
+PARAMETERS,,,
+Name,Meaning,Code name,Default,champ_t11,champ_t9
+coverage,bonus per new input or output color,NEW_COLOR,2.0,1.8913,1.1574
+throughput,bonus per output cubes minus input cubes,NET_GAIN,0.5,0.5293,1.6078
+distance,penalty per slot deep in the market row,DISTANCE,0.25,0.4493,0.4499
+spice,penalty on cards that generate a spice,SPICE,-1.0,-0.3116,-0.6030
+yellow,bonus per yellow produced fades as deck grows,SPICE_YELLOW,1.5,1.5179,1.2336
+yellow_threshold,deck size where the yellow bonus hits zero (smaller than 6),EARLY_DECK,6,6,8
+repeat_input,penalty per input color already used by another deck card,REPEAT_INPUT,-1.0,-1.0,-2.0727
+simple,bonus for single input -> single output both <=3 cubes,SIMPLE,1.5,1.0030,0.9039
+synergy,bonus per input color the deck already produces,SYNERGY,1.0,1.0,0.7901
+deck_fill,bonus per missing card while deck is below threshold,DECK_FILL,1.0,1.0,0.9461
+deck_fill_threshold,deck size deck_fill targets (smaller than 10),DECK_TARGET,10,11,9
+GA fitness,6-game tournament avg margin (noise-inflated),,+5.2,+8.0,+10.8
+,,,
+RESULTS,,,
+Metrics,60 games per pairing 2p seats rotated common random numbers,,,
+Pairing,Wins A,Wins B,AvgScore A,AvgScore B,Diff A,one-sided p
+default_vs_champ_t11,19,41,63.1,68.8,-5.7,0.002
+default_vs_champ_t9,21,39,64.1,67.6,-3.5,0.010
+champ_t11_vs_champ_t9,21,39,62.5,66.0,-3.6,0.010
+,,,
+Standings,Wins,Games,Win pct,AvgScore,AvgDiff,AvgDeck,GA fitness
+champ_t9,78,120,0.65,66.8,3.5,9.7,10.8
+champ_t11,62,120,0.52,65.6,1.1,11.1,8.0
+default,40,120,0.33,63.6,-4.6,10.2,5.2
+,,,
+Seat win split (seat0),33/27,33/27,31/29 (no seat artifact),,,
+Game length (turns),median 74 range 56-92,,,
+,,,
+Notes,,,
+All three agents are HeuristicPlus variants - same targeting and stop machinery, these 11 weights are the only difference,,,
+champ_t11 = GA champion gens 1-9 (bigger deck via deck_fill_threshold 11, mild weight tweaks),,,
+champ_t9 = GA champion gens 10-17 (deck_fill_threshold 9, throughput x3, coverage halved, repeat_input doubled),,,
+GA fitness overstates the true edge (6-game winner's curse) but ranking held: t9 > t11 > default,,,
+Exact full-precision genomes live in benchmarks/genetic_state/checkpoint.json,,,
+,"",,,

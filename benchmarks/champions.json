@@ -1,0 +1,53 @@
+{
+  "note": "full-precision weight sets from the 2026-10-13/14 genetic tuning; GA validated ranking t9 > t11 > default over 60-game 2p head-to-heads (see genetic_summary.csv)",
+  "arms": {
+    "default": {
+      "source": "shipped HeuristicPlus weights",
+      "genome": {
+        "DECK_TARGET": 10,
+        "DECK_FILL": 1.0,
+        "SYNERGY": 1.0,
+        "SPICE": -1.0,
+        "SPICE_YELLOW": 1.5,
+        "EARLY_DECK": 6,
+        "REPEAT_INPUT": -1.0,
+        "SIMPLE": 1.5,
+        "NEW_COLOR": 2.0,
+        "NET_GAIN": 0.5,
+        "DISTANCE": 0.25
+      }
+    },
+    "champ_t9": {
+      "source": "genetic.py champion, GA fitness +10.8 (6-game tournament, noise-inflated)",
+      "genome": {
+        "DECK_FILL": 0.9460793576810462,
+        "DECK_TARGET": 9,
+        "DISTANCE": 0.4498648145432645,
+        "EARLY_DECK": 8,
+        "NET_GAIN": 1.607790454739035,
+        "NEW_COLOR": 1.1574334476889367,
+        "REPEAT_INPUT": -2.072672612959144,
+        "SIMPLE": 0.9038694001583826,
+        "SPICE": -0.6029706499838317,
+        "SPICE_YELLOW": 1.2335595741542158,
+        "SYNERGY": 0.7901151458086876
+      }
+    },
+    "champ_t11": {
+      "source": "genetic.py champion, GA fitness +8.0 (6-game tournament, noise-inflated)",
+      "genome": {
+        "DECK_FILL": 1.0,
+        "DECK_TARGET": 11,
+        "DISTANCE": 0.4492788818828188,
+        "EARLY_DECK": 6,
+        "NET_GAIN": 0.5293440038126902,
+        "NEW_COLOR": 1.891318281097051,
+        "REPEAT_INPUT": -1.0,
+        "SIMPLE": 1.0029834407427771,
+        "SPICE": -0.3115504936356698,
+        "SPICE_YELLOW": 1.5178583663453649,
+        "SYNERGY": 1.0
+      }
+    }
+  }
+}
